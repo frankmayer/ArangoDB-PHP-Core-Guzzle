@@ -16,19 +16,19 @@
   "authors": [
     {
       "name": "Frank Mayer",
-      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle",
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle",
       "role": "Developer"
     },
     {
       "name": "Contributors",
-      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle/graphs/contributors"
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle/graphs/contributors"
     }
   ],
   "require": {
     "php": ">=5.4.0",
     "wyrihaximus/react-guzzle-ring": "dev-master",
     "guzzlehttp/guzzle": "5.2.0",
-    "frankmayer/arangodb-php-core": "dev-devel",
+    "frankmayer/arangodb-php-core": "dev-master",
     "react/react": "dev-master"
   },
   "require-dev": {
