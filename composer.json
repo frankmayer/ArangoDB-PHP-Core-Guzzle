@@ -1,0 +1,39 @@
+{
+  "name": "frankmayer/arango-db-php-core-guzzle",
+  "type": "library",
+  "description": "ArangoDB PHP Next Generation client",
+  "keywords": [
+    "database",
+    "ArangoDb",
+    "Arango",
+    "document store",
+    "NoSQL"
+  ],
+  "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle",
+  "license": [
+    "Apache-2.0"
+  ],
+  "authors": [
+    {
+      "name": "Frank Mayer",
+      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle",
+      "role": "Developer"
+    },
+    {
+      "name": "Contributors",
+      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle/graphs/contributors"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "wyrihaximus/react-guzzle-ring": "dev-master",
+    "guzzlehttp/guzzle": "5.2.0",
+    "frankmayer/arangodb-php-core": "dev-devel",
+    "react/react": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "frankmayer\\ArangoDbPhpCoreGuzzle": "lib/"
+    }
+  }
+}
