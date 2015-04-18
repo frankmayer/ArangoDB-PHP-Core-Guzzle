@@ -1,7 +1,7 @@
 {
   "name": "frankmayer/arango-db-php-core-guzzle",
   "type": "library",
-  "description": "ArangoDB PHP Next Generation client",
+  "description": "ArangoDB PHP Core - Guzzle Provider",
   "keywords": [
     "database",
     "ArangoDb",
