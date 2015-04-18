@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<phpunit bootstrap="bootstrap.php" colors="true" verbose="true" backupGlobals="false">
+    <testsuites>
+        <testsuite name="ArangoDB-PHP-Core-Guzzle-Unit">
+            <directory>./tests/Unit/</directory>
+        </testsuite>
+        <testsuite name="ArangoDB-PHP-Core-Guzzle-Integration">
+            <directory>./tests/Integration/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
