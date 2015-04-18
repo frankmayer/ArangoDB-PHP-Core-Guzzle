@@ -23,11 +23,11 @@ before_script:
 
 
 after_script:
-  # - php vendor/bin/coveralls -v
+ - php vendor/bin/coveralls -v
 
 script:
  - mkdir -p build/logs
- - phpunit # --coverage-clover build/logs/clover.xml
+ - phpunit  --coverage-clover build/logs/clover.xml
 
 addons:
   hosts:
