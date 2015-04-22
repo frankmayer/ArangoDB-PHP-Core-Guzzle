@@ -9,14 +9,13 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
-class SyncTest extends ArangoDbPhpCoreGuzzleApiTestCase
+class SyncTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
 
     /**

@@ -8,10 +8,12 @@
  * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle\Connectors;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 
+use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponseInterface;
 use frankmayer\ArangoDbPhpCore\ServerException;
 use GuzzleHttp\Message\FutureResponse;
+use GuzzleHttp\Message\Response;
 
 
 /**
@@ -19,10 +21,15 @@ use GuzzleHttp\Message\FutureResponse;
  *
  * @package frankmayer\ArangoDbPhpCore
  */
-class Response extends \frankmayer\ArangoDbPhpCore\Protocols\Http\Response
+class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse implements HttpResponseInterface
 {
     /**
-     * @param $request
+     * @var \GuzzleHttp\Message\Request
+     */
+    public $requestHandler;
+
+    /**
+     * @param HttpRequest $request
      *
      * @return static
      */
@@ -45,7 +52,7 @@ class Response extends \frankmayer\ArangoDbPhpCore\Protocols\Http\Response
 
 
     /**
-     * @param $response \GuzzleHttp\Message\Response
+     * @param $response HttpResponse
      *
      * @throws ServerException
      */
@@ -53,13 +60,15 @@ class Response extends \frankmayer\ArangoDbPhpCore\Protocols\Http\Response
     {
         if (!is_a($response, 'GuzzleHttp\Message\Response')) {
             $this->splitResponseToHeadersArrayAndBody($response);
-            $response     = new \GuzzleHttp\Message\Response($this->status, $this->headers, null, []);
+            $response     = new Response($this->status, $this->headers, null, []);
             $this->body   = (string) $this->body;
             $this->status = (int) explode(' ', $this->status)[1];
         } else {
-            $this->status = $response->getStatusCode();
-            $this->body   = (string) $response->getBody();
+            $this->status             = $response->getStatusCode();
+            $this->body               = (string) $response->getBody();
+            $response->requestHandler = $this->request->requestHandler;
         }
+
         $this->headers = $response->getHeaders();
 
         if ($this->verboseExtractStatusLine === true) {
@@ -74,11 +83,11 @@ class Response extends \frankmayer\ArangoDbPhpCore\Protocols\Http\Response
 
 
     /**
-     * @param $response
+     * @param HttpResponse $response
      */
     private function getVerboseStatusLine($response)
     {
-        $this->protocol     = $this->requestHandler->getScheme();
+        $this->protocol = strtoupper($response->requestHandler->getScheme()) . "/" . $response->requestHandler->getProtocolVersion();;
         $this->statusPhrase = $response->getReasonPhrase();
     }
 }

@@ -10,23 +10,19 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
-use frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\Connector;
 use frankmayer\ArangoDbPhpCore\Plugins\TracerPlugin;
-
-//todo: fix tests
+use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
 /**
  * Class ClientTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class ClientTest extends
-    ArangoDbPhpCoreGuzzleApiTestCase
+class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
 
     /**
@@ -34,7 +30,7 @@ class ClientTest extends
      */
     public $client;
     /**
-     * @var \frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\Connector
+     * @var Connector
      */
     public $connector;
 
@@ -63,9 +59,9 @@ class ClientTest extends
             ClientOptions::OPTION_DEFAULT_DATABASE     => '_system',
             ClientOptions::OPTION_TIMEOUT              => 5,
             ClientOptions::OPTION_PLUGINS              => $plugins,
-            ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Request',
-            ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Response',
-            ClientOptions::OPTION_ARANGODB_API_VERSION => '10400',
+            ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpRequest',
+            ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpResponse',
+            ClientOptions::OPTION_ARANGODB_API_VERSION => '20400',
         ];
     }
 
@@ -91,9 +87,9 @@ class ClientTest extends
             ClientOptions::OPTION_ENDPOINT             => 'http://localhost:8529',
             ClientOptions::OPTION_DEFAULT_DATABASE     => '_system',
             ClientOptions::OPTION_TIMEOUT              => 5,
-            ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCore\Connectors\Http\HttpRequest',
-            ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCore\Connectors\Http\HttpResponse',
-            ClientOptions::OPTION_ARANGODB_API_VERSION => '10400',
+            ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpRequest',
+            ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpResponse',
+            ClientOptions::OPTION_ARANGODB_API_VERSION => '20400',
             ClientOptions::OPTION_AUTH_TYPE            => 'Basic', // use basic authorization
             ClientOptions::OPTION_AUTH_USER            => 'coreTestUser', // user for basic authorization
             ClientOptions::OPTION_AUTH_PASSWD          => 'coreTestPassword', // password for basic authorization
@@ -225,34 +221,34 @@ class ClientTest extends
         $this->assertEquals($testValue1, $testValue);
 
         $getRequestOriginalClass = $this->client->getRequestClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Request', $getRequestOriginalClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest', $getRequestOriginalClass);
 
-        $object = $this->client->setRequestClass('frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\RequestTest');
+        $object = $this->client->setRequestClass('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequestTest');
         $this->assertTrue($this->client === $object);
 
         $getRequestClass = $this->client->getRequestClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\RequestTest', $getRequestClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequestTest', $getRequestClass);
 
         $object = $this->client->setRequestClass($getRequestOriginalClass);
         $this->assertTrue($this->client === $object);
 
         $getRequestClass = $this->client->getRequestClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Request', $getRequestClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest', $getRequestClass);
 
         $getResponseOriginalClass = $this->client->getResponseClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Response', $getResponseOriginalClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse', $getResponseOriginalClass);
 
-        $object = $this->client->setResponseClass('frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\ResponseTest');
+        $object = $this->client->setResponseClass('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponseTest');
         $this->assertTrue($this->client === $object);
 
         $getResponseClass = $this->client->getResponseClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\ResponseTest', $getResponseClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponseTest', $getResponseClass);
 
         $object = $this->client->setResponseClass($getResponseOriginalClass);
         $this->assertTrue($this->client === $object);
 
         $getResponseClass = $this->client->getResponseClass();
-        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Response', $getResponseClass);
+        $this->assertEquals('frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse', $getResponseClass);
     }
 
 

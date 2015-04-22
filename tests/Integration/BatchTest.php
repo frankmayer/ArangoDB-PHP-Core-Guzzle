@@ -10,21 +10,19 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Batch;
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
-use frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\Connector;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\Response;
+use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
 
 
 /**
  * Class BatchTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class BatchTest extends
-    ArangoDbPhpCoreGuzzleApiTestCase
+class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
     /**
      * @var
@@ -42,7 +40,7 @@ class BatchTest extends
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = $this->client = getClient($connector);
 
         $this->collectionNames[0] = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection-01';
         $this->collectionNames[1] = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection-02';
@@ -60,21 +58,24 @@ class BatchTest extends
         $batchParts = [];
 
         foreach ($this->collectionNames as $collectionName) {
-            $batchPart = Collection::create($this->client, $collectionName, $collectionOptions,
-                ['isBatchPart' => true]);
+            $collection         = new Collection();
+            $collection->client = $this->client;
+
+            /** @var $responseObject HttpResponse */
+            $batchPart = $collection->create($collectionName, $collectionOptions, ['isBatchPart' => true]);
 
             $this->assertEquals(202, $batchPart->status);
             $batchParts[] = $batchPart;
         }
 
 
-        /** @var Response $responseObject */
+        /** @var HttpResponse $responseObject */
         $responseObject = Batch::send($this->client, $batchParts);
         $this->assertEquals(200, $responseObject->status);
 
         $batchResponseParts = $responseObject->batch;
 
-        /** @var $batchPart Response */
+        /** @var $batchPart HttpResponse */
         foreach ($batchResponseParts as $batchPart) {
             $body = $batchPart->body;
             $this->assertArrayHasKey('code', json_decode($body, true));
@@ -85,7 +86,11 @@ class BatchTest extends
         $batchParts = [];
 
         foreach ($this->collectionNames as $collectionName) {
-            $batchParts[] = Collection::delete($this->client, $collectionName, ['isBatchPart' => true]);
+            $collection         = new Collection();
+            $collection->client = $this->client;
+
+            /** @var $responseObject HttpResponse */
+            $batchParts[] = $collection->delete($collectionName, ['isBatchPart' => true]);
         }
 
         $responseObject = Batch::send($this->client, $batchParts);
@@ -108,7 +113,11 @@ class BatchTest extends
     {
         $batchParts = [];
         foreach ($this->collectionNames as $collectionName) {
-            $batchParts[] = Collection::delete($this->client, $collectionName, ['isBatchPart' => true]);
+            $collection         = new Collection();
+            $collection->client = $this->client;
+
+            /** @var $responseObject HttpResponse */
+            $batchParts[] = $collection->delete($collectionName, ['isBatchPart' => true]);
         }
         Batch::send($this->client, $batchParts);
     }

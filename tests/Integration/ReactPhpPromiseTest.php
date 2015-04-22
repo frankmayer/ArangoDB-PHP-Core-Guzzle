@@ -9,9 +9,8 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 use GuzzleHttp\Message\FutureResponse;
@@ -19,7 +18,7 @@ use React\EventLoop\Factory;
 use WyriHaximus\React\RingPHP\HttpClientAdapter;
 
 
-class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleApiTestCase
+class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
 
     /**

@@ -10,24 +10,22 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
-use frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\Connector;
 use frankmayer\ArangoDbPhpCore\Plugins\PluginManager;
 use frankmayer\ArangoDbPhpCore\Plugins\TestPlugin;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\Response;
+use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
 
 
 /**
  * Class PluginTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class PluginTest extends
-    ArangoDbPhpCoreGuzzleApiTestCase
+class PluginIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
     /**
      * @var ClientOptions $clientOptions
@@ -85,10 +83,14 @@ class PluginTest extends
         }
         $this->assertInstanceOf('\Exception', $e);
 
-        /** @var $responseObject Response */
-        $responseObject = Collection::getAll($this->client);
+        /** @var $responseObject HttpResponse */
+        $collection         = new Collection();
+        $collection->client = $this->client;
 
-        $this->assertInstanceOf('frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Request', $responseObject->request);
+        /** @var $responseObject HttpResponse */
+        $responseObject = $collection->getAll();
+
+        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface', $responseObject->request);
     }
 
 

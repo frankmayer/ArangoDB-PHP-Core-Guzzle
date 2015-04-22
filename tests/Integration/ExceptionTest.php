@@ -9,16 +9,14 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
-class ExceptionTest extends ArangoDbPhpCoreGuzzleApiTestCase
+class ExceptionTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
-
     /**
      * base URL part for cursor related operations
      */

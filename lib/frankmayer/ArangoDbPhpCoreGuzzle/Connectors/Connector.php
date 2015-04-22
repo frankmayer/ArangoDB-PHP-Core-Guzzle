@@ -12,9 +12,9 @@ namespace frankmayer\ArangoDbPhpCoreGuzzle\Connectors;
 
 
 use frankmayer\ArangoDbPhpCore\ClientOptions;
-use frankmayer\ArangoDbPhpCore\Connectors\BaseConnector;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\ConnectorInterface;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\Request;
+use frankmayer\ArangoDbPhpCore\Connectors\AbstractHttpConnector;
+use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
+use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpConnectorInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
@@ -27,19 +27,18 @@ use GuzzleHttp\Exception\ServerException;
  *
  * @package frankmayer\ArangoDbPhpCore
  */
-class Connector extends BaseConnector implements
-    ConnectorInterface
+class Connector extends AbstractHttpConnector implements HttpConnectorInterface
 {
     /**
-     * @param Request $request
+     * @param AbstractHttpRequest $request
      *
      * @return mixed
      * @throws \frankmayer\ArangoDbPhpCore\ClientException
      * @throws \frankmayer\ArangoDbPhpCore\ServerException
      */
-    public function request(Request $request)
+    public function request(AbstractHttpRequest $request)
     {
-        $this->client->responseClass = 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Response';
+        $this->client->responseClass = 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse';
 
         $headers          = [];
         $clientParameters = [];
@@ -48,7 +47,6 @@ class Connector extends BaseConnector implements
             $clientParameters = ['handler' => $request->handler];
         }
         $client = new Client($clientParameters);
-
         $body   = $request->body;
 
         $request->headers['Content-Length'] = strlen($body);
@@ -84,7 +82,7 @@ class Connector extends BaseConnector implements
             $connectorOptions = array_merge($connectorOptions, $config);
         }
 
-        $connectorOptions = array_merge($connectorOptions, $request->connectorOptions);
+        $connectorOptions = array_merge($connectorOptions, $request->connectorOptions, ['exceptions' => false]);
 
         $guzzleRequest           = $client->createRequest($request->method, $request->address, $connectorOptions);
         $request->requestHandler = $guzzleRequest;

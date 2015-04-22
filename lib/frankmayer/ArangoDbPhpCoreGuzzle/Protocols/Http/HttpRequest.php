@@ -8,9 +8,9 @@
  * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle\Connectors;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 
-use frankmayer\ArangoDbPhpCore\Protocols\Http\RequestInterface;
+use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
 
 
 /**
@@ -19,7 +19,7 @@ use frankmayer\ArangoDbPhpCore\Protocols\Http\RequestInterface;
  *
  * @package frankmayer\ArangoDbPhpCore
  */
-class Request extends \frankmayer\ArangoDbPhpCore\Protocols\Http\Request implements RequestInterface
+class HttpRequest extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequest implements HttpRequestInterface
 {
 
 }

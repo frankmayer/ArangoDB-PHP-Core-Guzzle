@@ -12,10 +12,11 @@ namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-//use frankmayer\ArangoDbPhpCore\Plugins\TracerPlugin;
-
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
+
+//use frankmayer\ArangoDbPhpCore\Plugins\TracerPlugin;
+
 
 function getClientOptions()
 {
@@ -34,9 +35,10 @@ function getClientOptions()
         // timeout in seconds
         ClientOptions::OPTION_TIMEOUT              => 5,
         // ClientOptions::OPTION_PLUGINS              => $plugins,
-        ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Request',
-        ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Response',
+        ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest',
+        ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse',
         ClientOptions::OPTION_ARANGODB_API_VERSION => '10400',
+        ClientOptions::OPTION_DNS_SERVER           => '127.0.0.1',
     ];
 }
 

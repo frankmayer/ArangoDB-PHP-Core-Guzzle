@@ -10,24 +10,22 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleApiTestCase.php');
+require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
 
-use frankmayer\ArangoDbPhpCore\ArangoDbPhpCoreGuzzleApiTestCase;
 use frankmayer\ArangoDbPhpCore\Client;
-use frankmayer\ArangoDbPhpCore\ClientException;
-use frankmayer\ArangoDbPhpCore\Connectors\CurlHttp\Connector;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\Request;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\RequestInterface;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\Response;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\ResponseInterface;
+use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
+use frankmayer\ArangoDbPhpCore\Protocols\ResponseInterface;
+use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
+use GuzzleHttp\Exception\ClientException;
 
 
 /**
  * Class IocTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class IocTest extends
-    ArangoDbPhpCoreGuzzleApiTestCase
+class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
     /**
      * @var
@@ -39,7 +37,7 @@ class IocTest extends
     public $collectionNames;
 
     /**
-     * @var RequestInterface
+     * @var HttpRequestInterface
      */
     public $request;
 
@@ -61,7 +59,7 @@ class IocTest extends
         $connector       = new Connector();
         $this->connector = $connector;
 
-        $this->client = getClient($connector);
+        $this->client = $this->client = getClient($connector);
     }
 
 
@@ -76,7 +74,7 @@ class IocTest extends
             Client::bind(
                 'httpRequest',
                 function () {
-                    $instance         = new Request();
+                    $instance         = new HttpRequest();
                     $instance->client = $this->client;
 
                     return $instance;
@@ -89,7 +87,7 @@ class IocTest extends
             Client::bind(
                 'httpRequest',
                 function () use ($me) {
-                    $instance         = new Request();
+                    $instance         = new HttpRequest();
                     $instance->client = $me->client;
 
                     return $instance;
@@ -99,7 +97,7 @@ class IocTest extends
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
         $this->request = Client::make('httpRequest');
-        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\RequestInterface', $this->request);
+        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest', $this->request);
 
 
         $testValue = $this->request->getAddress();
@@ -196,7 +194,7 @@ class IocTest extends
     {
         $this->request         = Client::make('httpRequest');
         $this->request->path   = '/_admin/version';
-        $this->request->method = Request::METHOD_GET;
+        $this->request->method = HttpRequest::METHOD_GET;
         $this->request->send();
 
         if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
@@ -205,7 +203,7 @@ class IocTest extends
             Client::bind(
                 'httpResponse',
                 function () {
-                    $response = new Response();
+                    $response = new HttpResponse();
 
                     $response->request = $this->request;
 
@@ -219,7 +217,7 @@ class IocTest extends
             Client::bind(
                 'httpResponse',
                 function () use ($me) {
-                    $response = new Response();
+                    $response = new HttpResponse();
 
                     $response->request = $me->request;
 
@@ -234,7 +232,7 @@ class IocTest extends
         $this->response->build($this->request);
 
         //        echo get_class($this->request);
-        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\Response', $this->response);
+        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponseInterface', $this->response);
         $decodedBody = json_decode($this->response->body, true);
         $this->assertTrue($decodedBody['server'] === 'arango');
         $this->assertAttributeEmpty('protocol', $this->response);
