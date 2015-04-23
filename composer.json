@@ -1,5 +1,5 @@
 {
-  "name": "frankmayer/arango-db-php-core-guzzle",
+  "name": "frankmayer/arangodb-php-core-guzzle",
   "type": "library",
   "description": "ArangoDB PHP Core - Guzzle Provider",
   "keywords": [
