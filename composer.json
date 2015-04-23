@@ -27,6 +27,7 @@
   "require": {
     "php": ">=5.4.0",
     "wyrihaximus/react-guzzle-ring": "dev-master",
+    "wyrihaximus/react-guzzle-http-client": "dev-master",
     "guzzlehttp/guzzle": "5.2.0",
     "frankmayer/arangodb-php-core": "dev-master",
     "react/react": "dev-master"
