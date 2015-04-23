@@ -131,7 +131,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         Client::bind(
             'Collection',
             function () {
-                $object         = new Collection();
+                $object         = new Collection($this->client);
                 $object->client = $this->client;
 
                 return $object;
@@ -141,7 +141,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
 
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
@@ -163,7 +163,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     {
         $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
 
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
@@ -186,7 +186,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
 
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
@@ -205,7 +205,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testGetCollections()
     {
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
@@ -222,7 +222,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testGetCollectionsExcludeSystem()
     {
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
@@ -240,7 +240,7 @@ class CollectionIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     public function tearDown()
     {
         $collectionName     = 'ArangoDB-PHP-Core-CollectionTestSuite-CollectionViaIocContainer';
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */

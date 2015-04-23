@@ -10,6 +10,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 
+use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
 use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponseInterface;
 use frankmayer\ArangoDbPhpCore\ServerException;
 use GuzzleHttp\Message\FutureResponse;
@@ -35,8 +36,18 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     public function build($request)
     {
-        $response      = $request->response;
-        $this->request = $request;
+        if ($request instanceof AbstractHttpRequest) {
+            $response      = $request->response;
+            $this->request = $request;
+
+            if ($request->batch === true) {
+                $boundary    = $request->batchBoundary;
+                $this->batch = $this->deconstructBatchResponseBody($response, $boundary);
+            }
+        } else {
+            $response = $request;
+        }
+
         if ($response instanceof FutureResponse) {
             return $response->then(function ($response) {
                 $this->getGuzzleResponseData($response);
@@ -60,9 +71,12 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
     {
         if (!is_a($response, 'GuzzleHttp\Message\Response')) {
             $this->splitResponseToHeadersArrayAndBody($response);
-            $response     = new Response($this->status, $this->headers, null, []);
-            $this->body   = (string) $this->body;
-            $this->status = (int) explode(' ', $this->status)[1];
+            $response   = new Response($this->status, $this->headers, null, []);
+            $this->body = (string) $this->body;
+            //            $this->status = (int) explode(' ', $this->status)[1];
+            $statusLineArray = explode(" ", trim($this->headers['status'][0]));
+
+            $this->status = (int) $statusLineArray[1];
         } else {
             $this->status             = $response->getStatusCode();
             $this->body               = (string) $response->getBody();

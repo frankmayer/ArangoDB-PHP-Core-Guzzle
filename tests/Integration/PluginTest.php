@@ -84,13 +84,14 @@ class PluginIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->assertInstanceOf('\Exception', $e);
 
         /** @var $responseObject HttpResponse */
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
         $responseObject = $collection->getAll();
 
-        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface', $responseObject->request);
+        $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface',
+            $responseObject->request);
     }
 
 

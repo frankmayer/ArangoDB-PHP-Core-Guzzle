@@ -244,14 +244,6 @@ class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->response->build($this->request);
         $this->assertAttributeNotEmpty('protocol', $this->response);
 
-        $testValue = $this->response->getAsync();
-        $this->assertEmpty($testValue);
-
-        $this->response->setAsync(true);
-
-        $testValue = $this->response->getAsync();
-        $this->assertTrue($testValue);
-
 
         $testValue = $this->response->getBatch();
         $this->assertEmpty($testValue);

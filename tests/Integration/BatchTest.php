@@ -58,19 +58,18 @@ class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $batchParts = [];
 
         foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection();
+            $collection         = new Collection($this->client);
             $collection->client = $this->client;
 
             /** @var $responseObject HttpResponse */
             $batchPart = $collection->create($collectionName, $collectionOptions, ['isBatchPart' => true]);
 
-            $this->assertEquals(202, $batchPart->status);
             $batchParts[] = $batchPart;
         }
 
-
         /** @var HttpResponse $responseObject */
-        $responseObject = Batch::send($this->client, $batchParts);
+        $batch          = new Batch($this->client);
+        $responseObject = $batch->send($this->client, $batchParts);
         $this->assertEquals(200, $responseObject->status);
 
         $batchResponseParts = $responseObject->batch;
@@ -86,7 +85,7 @@ class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $batchParts = [];
 
         foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection();
+            $collection         = new Collection($this->client);
             $collection->client = $this->client;
 
             /** @var $responseObject HttpResponse */
@@ -113,7 +112,7 @@ class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     {
         $batchParts = [];
         foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection();
+            $collection         = new Collection($this->client);
             $collection->client = $this->client;
 
             /** @var $responseObject HttpResponse */

@@ -38,7 +38,6 @@ function getClientOptions()
         ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest',
         ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse',
         ClientOptions::OPTION_ARANGODB_API_VERSION => '10400',
-        ClientOptions::OPTION_DNS_SERVER           => '127.0.0.1',
     ];
 }
 

@@ -136,7 +136,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $documentParameters = ['createCollection' => true];
         $requestBody        = ['name' => 'frank', '_key' => '1'];
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         /** @var HttpResponse $responseObject */
@@ -151,7 +151,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         $responseObject = $collection->delete($collectionName);
@@ -171,7 +171,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     {
         $collectionName   = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
         $requestBody      = ['name' => 'frank', '_key' => '1'];
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         /** @var HttpResponse $responseObject */
@@ -186,7 +186,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
-        $responseObject = $document->getAllUri($collectionName);
+        $responseObject = $document->getAll($collectionName);
         $responseBody   = $responseObject->body;
 
         $this->assertArrayHasKey('documents', json_decode($responseBody, true));
@@ -231,7 +231,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
         $requestBody    = ['name' => 'Frank', 'bike' => 'vfr', '_key' => '1'];
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         /** @var HttpResponse $responseObject */
@@ -246,7 +246,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $requestBody = ['name' => 'Mike'];
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         $responseObject = $document->replace($collectionName . '/1', $requestBody);
@@ -260,7 +260,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         $responseObject = $document->get($collectionName . '/1', $requestBody);
@@ -307,7 +307,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
         $requestBody    = ['name' => 'Frank', 'bike' => 'vfr', '_key' => '1'];
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         /** @var HttpResponse $responseObject */
@@ -322,7 +322,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $requestBody = ['name' => 'Mike'];
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         $responseObject = $document->update($collectionName . '/1', $requestBody);
@@ -336,7 +336,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
-        $document         = new Document();
+        $document         = new Document($this->client);
         $document->client = $this->client;
 
         $responseObject = $document->get($collectionName . '/1', $requestBody);
@@ -410,7 +410,7 @@ class DocumentIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->assertEquals(200, $decodedJsonBody['code']);
 
         $collectionName     = 'ArangoDB-PHP-Core-CollectionTestSuite-NonExistingCollection';
-        $collection         = new Collection();
+        $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
