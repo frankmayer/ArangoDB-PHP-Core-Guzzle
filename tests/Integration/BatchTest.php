@@ -11,9 +11,11 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/BatchTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Batch;
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\BatchIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
 
@@ -22,7 +24,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
  * Class BatchTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
+class BatchTest extends BatchIntegrationTest
 {
     /**
      * @var
@@ -47,64 +49,6 @@ class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->collectionNames[2] = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection-03';
     }
 
-
-    /**
-     * Test if we can get the server version
-     */
-    public function testCreateCollectionInBatchAndDeleteThemAgainInBatch()
-    {
-        $collectionOptions = ["waitForSync" => true];
-
-        $batchParts = [];
-
-        foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection($this->client);
-            $collection->client = $this->client;
-
-            /** @var $responseObject HttpResponse */
-            $batchPart = $collection->create($collectionName, $collectionOptions, ['isBatchPart' => true]);
-
-            $batchParts[] = $batchPart;
-        }
-
-        /** @var HttpResponse $responseObject */
-        $batch          = new Batch($this->client);
-        $responseObject = $batch->send($this->client, $batchParts);
-        $this->assertEquals(200, $responseObject->status);
-
-        $batchResponseParts = $responseObject->batch;
-
-        /** @var $batchPart HttpResponse */
-        foreach ($batchResponseParts as $batchPart) {
-            $body = $batchPart->body;
-            $this->assertArrayHasKey('code', json_decode($body, true));
-            $decodedJsonBody = json_decode($body, true);
-            $this->assertEquals(200, $decodedJsonBody['code']);
-        }
-
-        $batchParts = [];
-
-        foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection($this->client);
-            $collection->client = $this->client;
-
-            /** @var $responseObject HttpResponse */
-            $batchParts[] = $collection->delete($collectionName, ['isBatchPart' => true]);
-        }
-
-        $responseObject = Batch::send($this->client, $batchParts);
-
-        $batchResponseParts = $responseObject->batch;
-
-        foreach ($batchResponseParts as $batchPart) {
-            $body = $batchPart->body;
-            $this->assertArrayHasKey('code', json_decode($body, true));
-            $decodedJsonBody = json_decode($body, true);
-            $this->assertEquals(200, $decodedJsonBody['code']);
-        }
-    }
-
-
     /**
      *
      */
@@ -116,8 +60,9 @@ class BatchIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
             $collection->client = $this->client;
 
             /** @var $responseObject HttpResponse */
-            $batchParts[] = $collection->delete($collectionName, ['isBatchPart' => true]);
+            $batchParts[] = $collection->drop($collectionName, ['isBatchPart' => true]);
         }
-        Batch::send($this->client, $batchParts);
+        $batch = new Batch($this->client);
+        $batch->send($this->client, $batchParts);
     }
 }

@@ -55,6 +55,7 @@ class ArangoDbPhpCoreGuzzleIntegrationTestCase extends
      */
     const METHOD_OPTIONS = 'OPTIONS';
 
+
     public function testEmpty()
     {
     }

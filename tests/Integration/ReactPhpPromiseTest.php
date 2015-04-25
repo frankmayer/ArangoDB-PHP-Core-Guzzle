@@ -63,22 +63,24 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         $handler = new HttpClientAdapter($loop, null, $dnsResolver);
 
-        Client::bind(
+        $this->client->bind(
             'Request',
             function () {
-                $request         = new $this->client->requestClass();
+                $request         = new $this->client->requestClass($this);
                 $request->client = $this->client;
 
                 return $request;
             }
         );
+
+
         $query = 'RETURN SLEEP(1)';
 
         $statement = ["query" => $query];
 
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $request = Client::make('Request');
+        $request = $this->client->make('Request');
 
         $request->body             = $statement;
         $request->connectorOptions = ['future' => true];
@@ -87,7 +89,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $request->body    = json_encode($request->body);
         $request->handler = $handler;
 
-        $request->path   = $request->getDatabasePath() . self::URL_CURSOR;
+        $request->path   = $this->client->fullDatabasePath . self::URL_CURSOR;
         $request->method = self::METHOD_POST;
 
         $responseObject = $request->send();
@@ -122,10 +124,10 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     public function testMultiplePromise()
     {
         $collectionParameters = [];
-        Client::bind(
+        $this->client->bind(
             'Request',
             function () {
-                $request         = new $this->client->requestClass();
+                $request         = new $this->client->requestClass($this);
                 $request->client = $this->client;
 
                 return $request;
@@ -145,7 +147,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $i = 0;
 
 
-        $request = Client::make('Request');
+        $request = $this->client->make('Request');
         //        $request->options          = $options;
         $request->body             = $statement;
         $request->handler          = $handler;
@@ -154,7 +156,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $request->body = self::array_merge_recursive_distinct($request->body, $collectionParameters);
         $request->body = json_encode($request->body);
 
-        $request->path   = $request->getDatabasePath() . self::URL_CURSOR;
+        $request->path   = $this->client->fullDatabasePath . self::URL_CURSOR;
         $request->method = self::METHOD_POST;
         $requests[$i]    = $request;
 

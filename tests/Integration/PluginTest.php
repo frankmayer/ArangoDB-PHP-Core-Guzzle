@@ -11,21 +11,22 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/PluginTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
 use frankmayer\ArangoDbPhpCore\Plugins\PluginManager;
 use frankmayer\ArangoDbPhpCore\Plugins\TestPlugin;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\PluginIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
-use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
 
 
 /**
  * Class PluginTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class PluginIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
+class PluginTest extends PluginIntegrationTest
 {
     /**
      * @var ClientOptions $clientOptions

@@ -11,18 +11,22 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ClientTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
 use frankmayer\ArangoDbPhpCore\Plugins\TracerPlugin;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\ClientIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+
+//todo: fix tests
 
 
 /**
  * Class ClientTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
+class ClientTest extends ClientIntegrationTest
 {
 
     /**
@@ -56,6 +60,7 @@ class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
         return [
             ClientOptions::OPTION_ENDPOINT             => 'http://db-link:8529',
+            ClientOptions::OPTION_DATABASE_PATH_PREFIX => '/_db/',
             ClientOptions::OPTION_DEFAULT_DATABASE     => '_system',
             ClientOptions::OPTION_TIMEOUT              => 5,
             ClientOptions::OPTION_PLUGINS              => $plugins,
@@ -86,13 +91,14 @@ class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         return [
             ClientOptions::OPTION_ENDPOINT             => 'http://localhost:8529',
             ClientOptions::OPTION_DEFAULT_DATABASE     => '_system',
+            ClientOptions::OPTION_DATABASE_PATH_PREFIX => '/_db/',
             ClientOptions::OPTION_TIMEOUT              => 5,
             ClientOptions::OPTION_REQUEST_CLASS        => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpRequest',
             ClientOptions::OPTION_RESPONSE_CLASS       => 'frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Http\HttpResponse',
-            ClientOptions::OPTION_ARANGODB_API_VERSION => '20400',
-            ClientOptions::OPTION_AUTH_TYPE            => 'Basic', // use basic authorization
-            ClientOptions::OPTION_AUTH_USER            => 'coreTestUser', // user for basic authorization
             ClientOptions::OPTION_AUTH_PASSWD          => 'coreTestPassword', // password for basic authorization
+            ClientOptions::OPTION_AUTH_USER            => 'coreTestUser', // user for basic authorization
+            ClientOptions::OPTION_AUTH_TYPE            => 'Basic', // use basic authorization
+            ClientOptions::OPTION_ARANGODB_API_VERSION => '20400',
         ];
     }
 
@@ -123,7 +129,7 @@ class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testMakeNonExistingType()
     {
-        Client::make('nonExistingType');
+        $this->client->make('nonExistingType');
     }
 
 
@@ -293,7 +299,6 @@ class ClientTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     //        $this->assertEquals('new value', $merged['key'][0]);
     //    }
     //
-
 
     /**
      *

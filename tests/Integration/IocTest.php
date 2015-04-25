@@ -11,24 +11,25 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/IocTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
+use frankmayer\ArangoDbPhpCore\ClientException;
 use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
 use frankmayer\ArangoDbPhpCore\Protocols\ResponseInterface;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\IocIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpRequest;
-use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
-use GuzzleHttp\Exception\ClientException;
 
 
 /**
  * Class IocTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
+class IocTest extends IocIntegrationTest
 {
     /**
-     * @var
+     * @var Client
      */
     public $client;
     /**
@@ -60,6 +61,15 @@ class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->connector = $connector;
 
         $this->client = $this->client = getClient($connector);
+        $this->client->bind(
+            'Request',
+            function () {
+                $request         = new $this->client->requestClass($this);
+                $request->client = $this->client;
+
+                return $request;
+            }
+        );
     }
 
 
@@ -68,35 +78,19 @@ class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testBindAndMakeHttpRequest()
     {
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-            // This is the way to bind an HttpRequest in PHP 5.4+
+        $this->client->bind(
+            'Request',
+            function () {
+                $request         = new $this->client->requestClass($this);
+                $request->client = $this->client;
 
-            Client::bind(
-                'httpRequest',
-                function () {
-                    $instance         = new HttpRequest();
-                    $instance->client = $this->client;
+                return $request;
+            }
+        );
 
-                    return $instance;
-                }
-            );
-        } else {
-            // This is the way to bind an HttpRequest in PHP 5.3.x
-
-            $me = $this;
-            Client::bind(
-                'httpRequest',
-                function () use ($me) {
-                    $instance         = new HttpRequest();
-                    $instance->client = $me->client;
-
-                    return $instance;
-                }
-            );
-        }
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $this->request = Client::make('httpRequest');
+        $this->request = $this->client->make('Request');
         $this->assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest', $this->request);
 
 
@@ -192,43 +186,24 @@ class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testBindAndMakeHttpResponsePlusGettersSetters()
     {
-        $this->request         = Client::make('httpRequest');
+        $this->request         = $this->client->make('Request');
         $this->request->path   = '/_admin/version';
         $this->request->method = HttpRequest::METHOD_GET;
         $this->request->send();
 
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-            // This is the way to bind an HttpRequest in PHP 5.4+
+        $this->client->bind(
+            'Response',
+            function () {
+                $request         = new $this->client->responseClass($this);
+                $request->client = $this->client;
 
-            Client::bind(
-                'httpResponse',
-                function () {
-                    $response = new HttpResponse();
-
-                    $response->request = $this->request;
-
-                    return $response;
-                }
-            );
-        } else {
-            // This is the way to bind an HttpRequest in PHP 5.3.x
-
-            $me = $this;
-            Client::bind(
-                'httpResponse',
-                function () use ($me) {
-                    $response = new HttpResponse();
-
-                    $response->request = $me->request;
-
-                    return $response;
-                }
-            );
-        }
+                return $request;
+            }
+        );
 
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $this->response = Client::make('httpResponse');
+        $this->response = $this->client->make('Response');
         $this->response->build($this->request);
 
         //        echo get_class($this->request);
@@ -239,7 +214,7 @@ class IocIntegrationTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 
 
         // test verboseExtractStatusLine
-        $this->response                           = Client::make('httpResponse');
+        $this->response                           = $this->client->make('Response');
         $this->response->verboseExtractStatusLine = true;
         $this->response->build($this->request);
         $this->assertAttributeNotEmpty('protocol', $this->response);

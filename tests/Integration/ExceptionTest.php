@@ -10,13 +10,16 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ExceptionTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\ExceptionIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
-class ExceptionTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
+class ExceptionTest extends ExceptionIntegrationTest
 {
+
     /**
      * base URL part for cursor related operations
      */
