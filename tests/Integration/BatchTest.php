@@ -42,7 +42,7 @@ class BatchTest extends BatchIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = $this->client = getClient($connector);
+        $this->client = getClient($connector);
 
         $this->collectionNames[0] = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection-01';
         $this->collectionNames[1] = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection-02';
@@ -56,8 +56,7 @@ class BatchTest extends BatchIntegrationTest
     {
         $batchParts = [];
         foreach ($this->collectionNames as $collectionName) {
-            $collection         = new Collection($this->client);
-            $collection->client = $this->client;
+            $collection = new Collection($this->client);
 
             /** @var $responseObject HttpResponse */
             $batchParts[] = $collection->drop($collectionName, ['isBatchPart' => true]);

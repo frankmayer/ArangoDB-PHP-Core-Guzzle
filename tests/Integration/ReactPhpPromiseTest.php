@@ -20,7 +20,6 @@ use WyriHaximus\React\RingPHP\HttpClientAdapter;
 
 class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
-
     /**
      * base URL part for cursor related operations
      */
@@ -66,8 +65,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->client->bind(
             'Request',
             function () {
-                $request         = new $this->client->requestClass($this);
-                $request->client = $this->client;
+                $request = $this->client->getRequest();
 
                 return $request;
             }
@@ -127,8 +125,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->client->bind(
             'Request',
             function () {
-                $request         = new $this->client->requestClass($this);
-                $request->client = $this->client;
+                $request = $this->client->getRequest();
 
                 return $request;
             }

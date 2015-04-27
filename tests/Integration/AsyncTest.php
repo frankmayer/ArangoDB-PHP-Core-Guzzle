@@ -49,8 +49,7 @@ class AsyncTest extends AsyncIntegrationTest
         $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
 
 
-        $collection         = new Collection($this->client);
-        $collection->client = $this->client;
+        $collection = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
         $collection->drop($collectionName);

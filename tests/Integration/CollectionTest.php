@@ -39,7 +39,7 @@ class CollectionTest extends CollectionIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = $this->client = getClient($connector);
+        $this->client = getClient($connector);
     }
 
 
@@ -48,9 +48,8 @@ class CollectionTest extends CollectionIntegrationTest
      */
     public function tearDown()
     {
-        $collectionName     = 'ArangoDB-PHP-Core-CollectionTestSuite-CollectionViaIocContainer';
-        $collection         = new Collection($this->client);
-        $collection->client = $this->client;
+        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-CollectionViaIocContainer';
+        $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
         $collection->drop($collectionName);

@@ -46,18 +46,4 @@ class ExceptionTest extends ExceptionIntegrationTest
         $connector    = new Connector();
         $this->client = getClient($connector);
     }
-
-    public function testTimeoutException()
-    {
-        //        $query = 'RETURN SLEEP(13)';
-        //
-        //        $statement = new Statement($this->connection, ["query" => $query]);
-        //
-        //        try {
-        //            $statement->execute();
-        //        } catch (ClientException $exception) {
-        //            $this->assertEquals($exception->getCode(), 408);
-        //            throw $exception;
-        //        }
-    }
 }
