@@ -14,7 +14,6 @@ namespace frankmayer\ArangoDbPhpCoreGuzzle\Connectors;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
 use frankmayer\ArangoDbPhpCore\Connectors\AbstractHttpConnector;
 use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpConnectorInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
@@ -27,7 +26,7 @@ use GuzzleHttp\Exception\ServerException;
  *
  * @package frankmayer\ArangoDbPhpCore
  */
-class Connector extends AbstractHttpConnector implements HttpConnectorInterface
+class Connector extends AbstractHttpConnector
 {
     /**
      * @param AbstractHttpRequest $request
@@ -76,7 +75,7 @@ class Connector extends AbstractHttpConnector implements HttpConnectorInterface
         }
         //         @codeCoverageIgnoreEnd
 
-        $connectorOptions = ["body" => $request->body, "headers" => $request->headers];
+        $connectorOptions = ['body' => $request->body, 'headers' => $request->headers];
 
         if (count($config) > 0) {
             $connectorOptions = array_merge($connectorOptions, $config);

@@ -11,10 +11,9 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 
 use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponseInterface;
 use frankmayer\ArangoDbPhpCore\ServerException;
-use GuzzleHttp\Message\FutureResponse;
-use GuzzleHttp\Message\Response;
+use Future;
+use GuzzleHttp\Psr7\Response;
 
 
 /**
@@ -22,18 +21,19 @@ use GuzzleHttp\Message\Response;
  *
  * @package frankmayer\ArangoDbPhpCore
  */
-class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse implements HttpResponseInterface
+class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse
 {
     /**
-     * @var \GuzzleHttp\Message\Request
+     * @var \GuzzleHttp\Psr7\Request
      */
     public $requestHandler;
 
-    /**
-     * @param HttpRequest $request
-     *
-     * @return static
-     */
+	/**
+	 * @param HttpRequest $request
+	 *
+	 * @return static
+	 * @throws \frankmayer\ArangoDbPhpCore\ServerException
+	 */
     public function build($request)
     {
         if ($request instanceof AbstractHttpRequest) {
@@ -63,18 +63,18 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
 
 
     /**
-     * @param $response HttpResponse
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @throws ServerException
      */
     private function getGuzzleResponseData($response)
     {
-        if (!is_a($response, 'GuzzleHttp\Message\Response')) {
+        if (!is_a($response, '\GuzzleHttp\Psr7\Response')) {
             $this->splitResponseToHeadersArrayAndBody($response);
             $response   = new Response($this->status, $this->headers, null, []);
             $this->body = (string) $this->body;
             //            $this->status = (int) explode(' ', $this->status)[1];
-            $statusLineArray = explode(" ", trim($this->headers['status'][0]));
+            $statusLineArray = explode(' ', trim($this->headers['status'][0]));
 
             $this->status = (int) $statusLineArray[1];
         } else {
@@ -89,7 +89,7 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
             $this->getVerboseStatusLine($response);
         }
 
-        if (in_array(intval($this->status), $this->enabledHttpServerExceptions)) {
+        if (in_array((int) $this->status, $this->enabledHttpServerExceptions, true)) {
             $this->getVerboseStatusLine($response);
             throw new ServerException($this->statusPhrase, $this->status);
         }
@@ -101,7 +101,7 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     private function getVerboseStatusLine($response)
     {
-        $this->protocol = strtoupper($response->requestHandler->getScheme()) . "/" . $response->requestHandler->getProtocolVersion();;
+        $this->protocol = strtoupper($response->requestHandler->getScheme()) . '/' . $response->requestHandler->getProtocolVersion();
         $this->statusPhrase = $response->getReasonPhrase();
     }
 }
