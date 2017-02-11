@@ -10,7 +10,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/IocTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
@@ -62,9 +62,7 @@ class IocTest extends IocIntegrationTest
         $this->client->bind(
             'Request',
             function () {
-                $request = $this->client->getRequest();
-
-                return $request;
+                return $this->client->getRequest();
             }
         );
     }

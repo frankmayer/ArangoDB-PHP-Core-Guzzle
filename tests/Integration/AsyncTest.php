@@ -10,7 +10,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/AsyncTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
@@ -46,7 +46,7 @@ class AsyncTest extends AsyncIntegrationTest
      */
     public function tearDown()
     {
-        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
 
         $collection = new Collection($this->client);

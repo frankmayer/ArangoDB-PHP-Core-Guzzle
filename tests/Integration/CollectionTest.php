@@ -10,7 +10,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/CollectionTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
@@ -48,7 +48,7 @@ class CollectionTest extends CollectionIntegrationTest
      */
     public function tearDown()
     {
-        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-CollectionViaIocContainer';
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-CollectionViaIocContainer';
         $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */

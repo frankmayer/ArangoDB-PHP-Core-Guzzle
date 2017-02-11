@@ -17,6 +17,6 @@ class GuzzleUnitTest extends ArangoDbPhpCoreGuzzleUnitTestCase
     public function testIfGuzzleClientInstantiable()
     {
         $client = new Client();
-        $this->assertInstanceOf('GuzzleHttp\Client', $client);
+        $this->assertInstanceOf(Client::class, $client);
     }
 }

@@ -9,7 +9,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
@@ -65,16 +65,14 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->client->bind(
             'Request',
             function () {
-                $request = $this->client->getRequest();
-
-                return $request;
+                return $this->client->getRequest();
             }
         );
 
 
         $query = 'RETURN SLEEP(1)';
 
-        $statement = ["query" => $query];
+        $statement = ['query' => $query];
 
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
@@ -125,14 +123,12 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $this->client->bind(
             'Request',
             function () {
-                $request = $this->client->getRequest();
-
-                return $request;
+                return $this->client->getRequest();
             }
         );
         $query = 'RETURN SLEEP(1)';
 
-        $statement = ["query" => $query];
+        $statement = ['query' => $query];
 
         $loop = Factory::create();
 

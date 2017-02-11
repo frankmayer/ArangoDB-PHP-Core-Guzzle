@@ -20,6 +20,10 @@ class ArangoDbPhpCoreGuzzleIntegrationTestCase extends
     /**
      *
      */
+    const TESTNAMES_PREFIX = 'ArangoDB-PHP-Core-Guzzle-';
+    /**
+     *
+     */
     const API_COLLECTION = '/_api/collection';
     /**
      *

@@ -11,7 +11,7 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
 
-require_once('ArangoDbPhpCoreGuzzleIntegrationTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/DocumentTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
@@ -42,17 +42,15 @@ class DocumentTest extends DocumentIntegrationTest
         $connector    = new Connector($this->client);
         $this->client = getClient($connector);
 
-        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
-        $collectionOptions    = ["waitForSync" => true];
+        $collectionOptions    = ['waitForSync' => true];
         $collectionParameters = [];
         $options              = $collectionOptions;
         $this->client->bind(
             'Request',
             function () {
-                $request = $this->client->getRequest();
-
-                return $request;
+                return $this->client->getRequest();
             }
         );
 
@@ -83,16 +81,14 @@ class DocumentTest extends DocumentIntegrationTest
      */
     public function tearDown()
     {
-        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-Collection';
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
-        $collectionOptions = ["waitForSync" => true];
+        $collectionOptions = ['waitForSync' => true];
         $options           = $collectionOptions;
         $this->client->bind(
             'Request',
             function () {
-                $request = $this->client->getRequest();
-
-                return $request;
+                return $this->client->getRequest();
             }
         );
 
@@ -112,7 +108,7 @@ class DocumentTest extends DocumentIntegrationTest
 
         $this->assertEquals(200, $decodedJsonBody['code']);
 
-        $collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-NonExistingCollection';
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-NonExistingCollection';
         $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
