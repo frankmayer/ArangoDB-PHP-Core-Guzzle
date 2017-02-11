@@ -3,9 +3,9 @@
 /**
  * ArangoDB PHP Core Client Test-Suite: Test Bootstrap
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreGuzzle
  * @author    Frank Mayer
- * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
+ * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;

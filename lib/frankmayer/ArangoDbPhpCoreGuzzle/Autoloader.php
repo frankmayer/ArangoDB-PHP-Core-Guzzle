@@ -3,9 +3,9 @@
 /**
  * ArangoDB PHP Core Client: Autoloader
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreGuzzle
  * @author    Frank Mayer
- * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
+ * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
@@ -18,7 +18,7 @@ use frankmayer\ArangoDbPhpCore\Exception;
  * The autoloader can be nested with other autoloaders. It will only
  * process classes from its own namespace and ignore all others.
  *
- * @package frankmayer\ArangoDbPhpCore
+ * @package frankmayer\ArangoDbPhpCoreGuzzle
  */
 class Autoloader
 {
@@ -63,9 +63,9 @@ class Autoloader
      */
     public static function load($className)
     {
-	    $className = str_replace([__NAMESPACE__, "\\"], ['', DIRECTORY_SEPARATOR], $className);
+        $className = str_replace([__NAMESPACE__, "\\"], ['', DIRECTORY_SEPARATOR], $className);
 
-	    if (file_exists(self::$rootDir . $className . self::EXTENSION)) {
+        if (file_exists(self::$rootDir . $className . self::EXTENSION)) {
             require_once self::$rootDir . $className . self::EXTENSION;
         }
     }
