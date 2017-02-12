@@ -1,11 +1,11 @@
 <?php
 
 /**
- * ArangoDB PHP Core Client: Curl HTTP Connector
+ * ArangoDB PHP Core Client: Guzzle HTTP Connector
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreGuzzle
  * @author    Frank Mayer
- * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
+ * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Connectors;
@@ -18,13 +18,14 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ServerException;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
 
 
 /**
- * This connector acts as a wrapper to PHP's curl class.
+ * This connector acts as a wrapper to PHP's guzzle class.
  * It must be injected into the client object upon the client's creation.
  *
- * @package frankmayer\ArangoDbPhpCore
+ * @package frankmayer\ArangoDbPhpCoreGuzzle
  */
 class Connector extends AbstractHttpConnector
 {
@@ -37,7 +38,7 @@ class Connector extends AbstractHttpConnector
      */
     public function request(AbstractHttpRequest $request)
     {
-        $this->client->responseClass = 'frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse';
+        $this->client->responseClass = HttpResponse::class;
 
         $headers          = [];
         $clientParameters = [];
@@ -61,18 +62,18 @@ class Connector extends AbstractHttpConnector
 
         // Ignoring this, as the server needs to have authentication enabled in order to run through this.
         //         @codeCoverageIgnoreStart
-        if (isset ($clientOptions[ClientOptions::OPTION_AUTH_TYPE])) {
-            if (strtolower($clientOptions[ClientOptions::OPTION_AUTH_TYPE]) === 'basic') {
-                $config = [
-                    'config' => [
-                        'curl' => [
-                            CURLOPT_HTTPAUTH => CURLAUTH_NTLM,
-                            CURLOPT_USERPWD  => 'username:password',
-                        ],
-                    ],
-                ];
-            }
-        }
+//        if (isset ($clientOptions[ClientOptions::OPTION_AUTH_TYPE])) {
+//            if (strtolower($clientOptions[ClientOptions::OPTION_AUTH_TYPE]) === 'basic') {
+//                $config = [
+//                    'config' => [
+//                        'curl' => [
+//                            CURLOPT_HTTPAUTH => CURLAUTH_NTLM,
+//                            CURLOPT_USERPWD  => 'username:password',
+//                        ],
+//                    ],
+//                ];
+//            }
+//        }
         //         @codeCoverageIgnoreEnd
 
         $connectorOptions = ['body' => $request->body, 'headers' => $request->headers];
@@ -82,11 +83,10 @@ class Connector extends AbstractHttpConnector
         }
 
         $connectorOptions = array_merge($connectorOptions, $request->connectorOptions, ['exceptions' => false]);
+        $connectorOptions = array_merge($connectorOptions, ['auth' => [$clientOptions['AuthUser'], $clientOptions['AuthPasswd']]]);
 
-        $guzzleRequest           = $client->createRequest($request->method, $request->address, $connectorOptions);
-        $request->requestHandler = $guzzleRequest;
         try {
-            $response = $client->send($guzzleRequest);
+            $response = $client->request($request->method, $request->address, $connectorOptions);
         } catch (ClientException $e) {
             throw new \frankmayer\ArangoDbPhpCore\ClientException($e->getMessage(), $e->getCode(), $e);
         } catch (ServerException $e) {

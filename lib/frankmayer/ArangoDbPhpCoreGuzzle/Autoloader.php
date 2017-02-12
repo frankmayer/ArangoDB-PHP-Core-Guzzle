@@ -82,8 +82,9 @@ class Autoloader
      */
     private static function checkEnvironment()
     {
-        if (version_compare(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION, '5.4.0', '<')) {
-            throw new ClientException('Incompatible PHP environment. Expecting PHP 5.4 or higher');
+        if (version_compare(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION, '5.6.99', '<')) {
+            echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION . PHP_RELEASE_VERSION;
+            throw new ClientException('Incompatible PHP environment. Expecting PHP 7.0 or higher');
         }
     }
 }

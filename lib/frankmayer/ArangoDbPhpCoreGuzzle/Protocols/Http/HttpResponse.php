@@ -3,9 +3,9 @@
 /**
  * ArangoDB PHP Core Client: HTTP Response
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreGuzzle
  * @author    Frank Mayer
- * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
+ * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
@@ -19,7 +19,7 @@ use GuzzleHttp\Psr7\Response;
 /**
  * Http-Response object holding the raw and objectified Response data.
  *
- * @package frankmayer\ArangoDbPhpCore
+ * @package frankmayer\ArangoDbPhpCoreGuzzle
  */
 class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse
 {
@@ -28,21 +28,26 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     public $requestHandler;
 
-	/**
-	 * @param HttpRequest $request
-	 *
-	 * @return static
-	 * @throws \frankmayer\ArangoDbPhpCore\ServerException
-	 */
+    /**
+     * @param HttpRequest $request
+     *
+     * @return static
+     * @throws \frankmayer\ArangoDbPhpCore\ServerException
+     */
     public function build($request)
     {
         if ($request instanceof AbstractHttpRequest) {
+            $body = '';
             $response      = $request->response;
+            $stream      = $request->response->getBody();
+            while (!$stream->eof()) {
+                $body .= $stream->read(1024);
+            }
             $this->request = $request;
 
             if ($request->batch === true) {
                 $boundary    = $request->batchBoundary;
-                $this->batch = $this->deconstructBatchResponseBody($response, $boundary);
+                $this->batch = $this->deconstructBatchResponseBody($body, $boundary);
             }
         } else {
             $response = $request;
@@ -69,7 +74,7 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     private function getGuzzleResponseData($response)
     {
-        if (!is_a($response, '\GuzzleHttp\Psr7\Response')) {
+        if (!is_a($response, Response::class)) {
             $this->splitResponseToHeadersArrayAndBody($response);
             $response   = new Response($this->status, $this->headers, null, []);
             $this->body = (string) $this->body;
@@ -80,7 +85,7 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
         } else {
             $this->status             = $response->getStatusCode();
             $this->body               = (string) $response->getBody();
-            $response->requestHandler = $this->request->requestHandler;
+            $response->requestHandler = $this->request;
         }
 
         $this->headers = $response->getHeaders();
@@ -101,7 +106,7 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     private function getVerboseStatusLine($response)
     {
-        $this->protocol = strtoupper($response->requestHandler->getScheme()) . '/' . $response->requestHandler->getProtocolVersion();
+        $this->protocol     = strtoupper($response->requestHandler->getUri()->getScheme()) . '/' . $response->requestHandler->getProtocol();
         $this->statusPhrase = $response->getReasonPhrase();
     }
 }

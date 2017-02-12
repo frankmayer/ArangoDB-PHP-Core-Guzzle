@@ -1,11 +1,7 @@
 <?php
 
-namespace frankmayer\ArangoDbPhpNg;
+namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
-use frankmayer\ArangoDbPhpCoreGuzzle\Autoloader;
-
-require dirname(
-        __FILE__
-    ) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'frankmayer' . DIRECTORY_SEPARATOR . 'ArangoDbPhpNg' . DIRECTORY_SEPARATOR . 'Autoloader.php';
+require __DIR__ . '/lib/frankmayer/ArangoDbPhpCoreGuzzle/Autoloader.php';
 
 Autoloader::init();
