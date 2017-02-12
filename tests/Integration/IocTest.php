@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/IocTest.php';
@@ -24,7 +24,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  * Class IocTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class IocTest extends IocIntegrationTest
+class IocTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\IocTest
 {
     /**
      * @var Client
@@ -58,7 +58,7 @@ class IocTest extends IocIntegrationTest
         $connector       = new Connector();
         $this->connector = $connector;
 
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
         $this->client->bind(
             'Request',
             function () {

@@ -7,7 +7,7 @@
  * @author Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ExceptionTest.php';
@@ -17,7 +17,7 @@ use frankmayer\ArangoDbPhpCore\Tests\Integration\ExceptionIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
-class ExceptionTest extends ExceptionIntegrationTest
+class ExceptionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ExceptionTest
 {
 
     /**
@@ -44,6 +44,6 @@ class ExceptionTest extends ExceptionIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 }

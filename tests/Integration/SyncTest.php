@@ -7,7 +7,7 @@
  * @author Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/SyncTest.php';
@@ -17,7 +17,7 @@ use frankmayer\ArangoDbPhpCore\Tests\Integration\SyncIntegrationTest;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 
-class SyncTest extends SyncIntegrationTest
+class SyncTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\SyncTest
 {
     /**
      * base URL part for cursor related operations
@@ -43,6 +43,6 @@ class SyncTest extends SyncIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 }

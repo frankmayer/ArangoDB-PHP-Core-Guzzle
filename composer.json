@@ -38,5 +38,11 @@
     "psr-0": {
       "frankmayer\\ArangoDbPhpCoreGuzzle": "lib/"
     }
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "frankmayer\\ArangoDbPhpCoreGuzzle\\Tests\\": "tests/",
+      "frankmayer\\ArangoDbPhpCore\\Tests\\": "vendor/frankmayer/arangodb-php-core/tests/"
+    }
   }
 }

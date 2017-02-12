@@ -4,7 +4,7 @@
  * ArangoDB PHP client testsuite
  * File: CollectionUnitTest.php
  *
- * @package frankmayer\ArangoDbPhpNg
+ * @package frankmayer\ArangoDbPhpCore
  * @author  Frank Mayer
  */
 
@@ -20,7 +20,7 @@ use frankmayer\ArangoDbPhpCore\Client;
  *
  *
  * @property Client $client
- * @package frankmayer\ArangoDbPhpNg
+ * @package frankmayer\ArangoDbPhpCoreGuzzle
  */
 class CollectionUnitTest extends ArangoDbPhpCoreGuzzleUnitTestCase
 {

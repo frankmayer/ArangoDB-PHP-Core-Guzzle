@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/CollectionTest.php';
@@ -25,8 +25,10 @@ use HttpResponse;
  * Class CollectionTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class CollectionTest extends CollectionIntegrationTest
+class CollectionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\CollectionTest
 {
+    use TestCaseTrait;
+
     /**
      * @var Client
      */
@@ -39,7 +41,7 @@ class CollectionTest extends CollectionIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 
 

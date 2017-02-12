@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/BatchTest.php';
@@ -24,7 +24,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
  * Class BatchTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class BatchTest extends BatchIntegrationTest
+class BatchTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\BatchTest
 {
     /**
      * @var
@@ -42,7 +42,7 @@ class BatchTest extends BatchIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
 
         $this->collectionNames[0] = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection-01';
         $this->collectionNames[1] = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection-02';

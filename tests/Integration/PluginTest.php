@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/PluginTest.php';
@@ -23,7 +23,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  * Class PluginTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class PluginTest extends PluginIntegrationTest
+class PluginTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\PluginTest
 {
     /**
      * @var ClientOptions $clientOptions
@@ -42,7 +42,7 @@ class PluginTest extends PluginIntegrationTest
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 
 

@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ClientTest.php';
@@ -24,7 +24,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  * Class ClientTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class ClientTest extends ClientIntegrationTest
+class ClientTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ClientTest
 {
 
     /**
@@ -44,7 +44,7 @@ class ClientTest extends ClientIntegrationTest
     {
         $connector       = new Connector();
         $this->connector = $connector;
-        $this->client    = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 
     /**

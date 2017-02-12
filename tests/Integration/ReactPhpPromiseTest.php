@@ -7,7 +7,7 @@
  * @author Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 
@@ -44,7 +44,7 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
     public function setUp()
     {
         $connector    = new Connector();
-        $this->client = getClient($connector);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
 
 
@@ -53,6 +53,10 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testPromise()
     {
+        $this->markTestSkipped(
+            'The functionality needs to be implemented in the API first (Do we still need react?).'
+        );
+
         $collectionParameters = [];
 
         $loop = Factory::create();
@@ -119,6 +123,9 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
      */
     public function testMultiplePromise()
     {
+        $this->markTestSkipped(
+            'The functionality needs to be implemented in the API first (Do we still need react?).'
+        );
         $collectionParameters = [];
         $this->client->bind(
             'Request',

@@ -8,7 +8,7 @@
  * @copyright Copyright 2013-2017, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
@@ -26,8 +26,10 @@ use HttpResponse;
  * Class DocumentTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class DocumentTest extends DocumentIntegrationTest
+class DocumentTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\DocumentTest
 {
+    use TestCaseTrait;
+
     /**
      * @var Client
      */
@@ -39,10 +41,11 @@ class DocumentTest extends DocumentIntegrationTest
      */
     public function setUp()
     {
-        $connector    = new Connector($this->client);
-        $this->client = getClient($connector);
+        $connector = new Connector($this->client);
+        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
 
-        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
+
+        $collectionName = $this->TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
         $collectionOptions    = ['waitForSync' => true];
         $collectionParameters = [];
@@ -81,7 +84,7 @@ class DocumentTest extends DocumentIntegrationTest
      */
     public function tearDown()
     {
-        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
+        $collectionName = $this->TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
         $collectionOptions = ['waitForSync' => true];
         $options           = $collectionOptions;
@@ -108,7 +111,7 @@ class DocumentTest extends DocumentIntegrationTest
 
         $this->assertEquals(200, $decodedJsonBody['code']);
 
-        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-NonExistingCollection';
+        $collectionName = $this->TESTNAMES_PREFIX . 'CollectionTestSuite-NonExistingCollection';
         $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
