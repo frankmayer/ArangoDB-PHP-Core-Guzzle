@@ -1,11 +1,12 @@
 ##ArangoDB-PHP-Core-Guzzle
-This library adds [Guzzle 6](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
+This library adds [Guzzle](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
 
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-[![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
+Master: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=master)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
+Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=devel)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
 
 [![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/frankmayer/ArangoDB-PHP-Core/blob/devel/LICENSE.md)
