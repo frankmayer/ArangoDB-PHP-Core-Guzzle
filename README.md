@@ -1,5 +1,5 @@
 ##ArangoDB-PHP-Core-Guzzle
-This library adds [Guzzle 5](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
+This library adds [Guzzle 6](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
 
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
