@@ -25,7 +25,7 @@ before_script:
 
 after_script:
   - php vendor/bin/coveralls -v
-  - ./tests/travis/teardown_arangodb.sh
+  - kill -9 $(pgrep arangod)
 
 script:
   - mkdir -p build/logs
