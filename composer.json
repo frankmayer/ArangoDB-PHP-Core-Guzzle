@@ -29,8 +29,7 @@
     "frankmayer/arangodb-php-core": "dev-master"
   },
   "require-dev": {
-    "satooshi/php-coveralls": "dev-master",
-    "phpunit/phpunit": "6.*"
+    "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
     "psr-4": {
