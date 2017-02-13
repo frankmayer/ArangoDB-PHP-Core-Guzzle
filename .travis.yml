@@ -21,7 +21,7 @@ before_script:
   - ./tests/travis/setup_arangodb.sh
   - bash tests/before.sh
   - composer install --prefer-source --no-interaction --dev
-
+  - composer dumpautoload -o
 
 after_script:
   - php vendor/bin/coveralls -v
