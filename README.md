@@ -20,8 +20,7 @@ Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzl
 
 ####Highlights:
 
-- Provides Guzzle support to ArangoDB-PHP-Core
-- Virtually should support any Guzzle connection handler (Curl & ReactPHP(Streams) are tested) that is supported via RingPHP 
+- Provides [Guzzle](https://github.com/guzzle/guzzle) support to [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core)
 
 
 ####PHP Versions:
@@ -45,8 +44,11 @@ Thanks !!
 
 
 ###### Todo's:
+- [x] Tests refactoring (+ upgrade to PHPUnit 6)
 - [ ] More tests
 - [ ] Docs
+- [ ] Virtually should support any Guzzle connection handler (Curl & ReactPHP(Streams) are tested) that is supported via RingPHP  
+
 
 
 ######License:
