@@ -24,11 +24,12 @@ before_script:
 
 
 after_script:
- - php vendor/bin/coveralls -v
+  - php vendor/bin/coveralls -v
+  - ./tests/travis/teardown_arangodb.sh
 
 script:
- - mkdir -p build/logs
- - phpunit  --coverage-clover build/logs/clover.xml
+  - mkdir -p build/logs
+  - phpunit  --coverage-clover build/logs/clover.xml
 
 addons:
   hosts:
