@@ -9,8 +9,9 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle;
 
+use PHPUnit\Framework\TestCase;
 
-class ArangoDbPhpCoreGuzzleUnitTestCase extends \PHPUnit_Framework_TestCase
+class ArangoDbPhpCoreGuzzleUnitTestCase extends TestCase
 {
     const API_COLLECTION = '/_api/collection';
     const API_DOCUMENT   = '/_api/document';

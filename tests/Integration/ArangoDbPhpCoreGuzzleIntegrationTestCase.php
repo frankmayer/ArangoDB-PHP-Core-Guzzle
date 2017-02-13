@@ -9,13 +9,14 @@
 
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ArangoDbPhpCoreTestCase
  * @package frankmayer\ArangoDbPhpCore
  */
 class ArangoDbPhpCoreGuzzleIntegrationTestCase extends
-    \PHPUnit_Framework_TestCase
+    TestCase
 {
     /**
      *
