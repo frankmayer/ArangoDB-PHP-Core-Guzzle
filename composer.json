@@ -1,7 +1,7 @@
 {
-  "name": "frankmayer/arango-db-php-core-guzzle",
+  "name": "frankmayer/arangodb-php-core-guzzle",
   "type": "library",
-  "description": "ArangoDB PHP Next Generation client",
+  "description": "ArangoDB PHP Core - Guzzle Provider",
   "keywords": [
     "database",
     "ArangoDb",
@@ -10,30 +10,37 @@
     "NoSQL"
   ],
   "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle",
-  "license": [
-    "Apache-2.0"
-  ],
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Frank Mayer",
-      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle",
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle",
       "role": "Developer"
     },
     {
       "name": "Contributors",
-      "homepage": "https://github.com/frankmayer/ArangoDbPhpCoreGuzzle/graphs/contributors"
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle/graphs/contributors"
     }
   ],
   "require": {
-    "php": ">=5.4.0",
-    "wyrihaximus/react-guzzle-ring": "dev-master",
-    "guzzlehttp/guzzle": "5.2.0",
-    "frankmayer/arangodb-php-core": "dev-devel",
-    "react/react": "dev-master"
+    "php": ">=7.0.0",
+    "wyrihaximus/react-guzzle-http-client": "dev-master",
+    "guzzlehttp/guzzle": ">=6",
+    "frankmayer/arangodb-php-core": "dev-master"
+  },
+  "require-dev": {
+    "satooshi/php-coveralls": "dev-master",
+    "phpunit/phpunit": "6.*"
   },
   "autoload": {
-    "psr-0": {
-      "frankmayer\\ArangoDbPhpCoreGuzzle": "lib/"
+    "psr-4": {
+      "frankmayer\\ArangoDbPhpCoreGuzzle\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "frankmayer\\ArangoDbPhpCoreGuzzle\\Tests\\": "tests/",
+      "frankmayer\\ArangoDbPhpCore\\Tests\\": "vendor/frankmayer/arangodb-php-core/tests/"
     }
   }
 }

@@ -1,5 +1,5 @@
 ##ArangoDB-PHP-Core-Guzzle
-This library adds [Guzzle 5](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
+This library adds [Guzzle 6](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
 
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -13,13 +13,13 @@ This library adds [Guzzle 5](https://github.com/guzzle/guzzle) support to the [A
 
 ####Highlights:
 
-- Provides Guzzle 5 support to ArangoDB-PHP-Core
-- Virtually should support any Guzzle 5 connection handler (Curl & ReactPHP(Streams) are tested) that is supported via RingPHP 
+- Provides Guzzle support to ArangoDB-PHP-Core
+- Virtually should support any Guzzle connection handler (Curl & ReactPHP(Streams) are tested) that is supported via RingPHP 
 
 
 ####PHP Versions:
 
-Supported: PHP 5.4+, HHVM 2.3.0+
+Tested and Supported with PHP 7.0+ & HHVM 3.15.0+ (but will most probably work from HHVM 3.11.0 onwards)
 
 
 #####Caution:

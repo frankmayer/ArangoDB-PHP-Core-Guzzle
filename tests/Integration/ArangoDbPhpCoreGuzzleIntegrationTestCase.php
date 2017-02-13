@@ -7,23 +7,63 @@
  * @author Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 
-class ArangoDbPhpCoreGuzzleUnitTestCase extends TestCase
+/**
+ * Class ArangoDbPhpCoreTestCase
+ * @package frankmayer\ArangoDbPhpCore
+ */
+class ArangoDbPhpCoreGuzzleIntegrationTestCase extends
+    TestCase
 {
+    /**
+     *
+     */
+    const TESTNAMES_PREFIX = 'ArangoDB-PHP-Core-Guzzle-';
+    /**
+     *
+     */
     const API_COLLECTION = '/_api/collection';
-    const API_DOCUMENT   = '/_api/document';
+    /**
+     *
+     */
+    const API_DOCUMENT = '/_api/document';
 
-    const METHOD_GET     = 'GET';
-    const METHOD_POST    = 'POST';
-    const METHOD_PUT     = 'PUT';
-    const METHOD_PATCH   = 'PATCH';
-    const METHOD_DELETE  = 'DELETE';
-    const METHOD_HEAD    = 'HEAD';
+    /**
+     *
+     */
+    const METHOD_GET = 'GET';
+    /**
+     *
+     */
+    const METHOD_POST = 'POST';
+    /**
+     *
+     */
+    const METHOD_PUT = 'PUT';
+    /**
+     *
+     */
+    const METHOD_PATCH = 'PATCH';
+    /**
+     *
+     */
+    const METHOD_DELETE = 'DELETE';
+    /**
+     *
+     */
+    const METHOD_HEAD = 'HEAD';
+    /**
+     *
+     */
     const METHOD_OPTIONS = 'OPTIONS';
 
+
+    public function testEmpty()
+    {
+    }
 
     /**
      * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
