@@ -6,10 +6,14 @@ This library adds [Guzzle](https://github.com/guzzle/guzzle) support to the [Ara
 [![Latest Unstable Version](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/v/unstable)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
 [![License](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/license)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
 [![composer.lock](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/composerlock)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
-[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
+[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.svg)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
 
-Master: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=master)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle/tree/master)
-Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=devel)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle/tree/devel)
+![PHP_Compatibility](https://img.shields.io/badge/php-7+-blue.svg)
+![HHVM_Compatibility](https://img.shields.io/badge/hhvm-3.12+-blue.svg)
+
+
+Master: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=master)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
+Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=devel)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
