@@ -1,15 +1,17 @@
 ##ArangoDB-PHP-Core-Guzzle
 This library adds [Guzzle](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
 
+[![Latest Stable Version](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/v/stable)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
+[![Total Downloads](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/downloads)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
+[![Latest Unstable Version](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/v/unstable)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
+[![License](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/license)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
+[![composer.lock](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/composerlock)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
+[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
+
+Master: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=master)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle/tree/master)
+Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=devel)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle/tree/devel)
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-
-Master: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=master)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
-Devel: [![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png?branch=devel)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
-
-[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
-[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/frankmayer/ArangoDB-PHP-Core/blob/devel/LICENSE.md)
 
 
 ####Highlights:
@@ -44,4 +46,4 @@ Thanks !!
 
 
 ######License:
-Apache V2 => see LICENSE.md file
+Apache V2, see https://github.com/frankmayer/ArangoDB-PHP-Core-Guzzle/blob/devel/LICENSE.md
