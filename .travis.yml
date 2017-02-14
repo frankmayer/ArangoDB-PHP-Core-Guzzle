@@ -2,7 +2,7 @@ language: php
 
 php:
   - 7.0
-#  - 7.1
+  - 7.1
   - hhvm-3.15
 
 dist: trusty
@@ -11,7 +11,7 @@ sudo: required
 
 matrix:
     fast_finish: true
-#    allow_failures:
+#    allow_failures:y
 #      - php: hhvm-nightly
 
 before_install:
@@ -22,7 +22,7 @@ before_script:
   - chmod 777 ./tests/travis/setup_arangodb.sh
   - ./tests/travis/setup_arangodb.sh
 #  - bash tests/before.sh
-  - composer install --prefer-source --no-interaction --dev --ignore-platform-reqs
+  - composer install --prefer-source --no-interaction --ignore-platform-reqs
   - composer dumpautoload -o
 
 after_script:
