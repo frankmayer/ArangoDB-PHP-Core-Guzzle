@@ -18,4 +18,9 @@
             <directory>./tests/Integration/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./lib</directory>
+        </whitelist>
+    </filter>
 </phpunit>

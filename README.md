@@ -6,7 +6,7 @@ This library adds [Guzzle](https://github.com/guzzle/guzzle) support to the [Ara
 [![Latest Unstable Version](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/v/unstable)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
 [![License](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/license)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
 [![composer.lock](https://poser.pugx.org/frankmayer/arangodb-php-core-guzzle/composerlock)](https://packagist.org/packages/frankmayer/arangodb-php-core-guzzle)
-[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.svg)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
+[![codecov](https://codecov.io/gh/frankmayer/ArangoDB-PHP-Core-Guzzle/branch/devel/graph/badge.svg)](https://codecov.io/gh/frankmayer/ArangoDB-PHP-Core-Guzzle)
 
 ![PHP_Compatibility](https://img.shields.io/badge/php-7+-blue.svg)
 ![HHVM_Compatibility](https://img.shields.io/badge/hhvm-3.12+-blue.svg)
