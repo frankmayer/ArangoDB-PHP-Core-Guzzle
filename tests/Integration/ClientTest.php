@@ -42,9 +42,17 @@ class ClientTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ClientTes
      */
     public function setUp()
     {
+
         $connector       = new Connector();
         $this->connector = $connector;
         $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+    }
+
+    public function testFake()
+    {
+        static::markTestSkipped(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**

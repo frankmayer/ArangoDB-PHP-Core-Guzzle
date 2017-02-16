@@ -17,7 +17,9 @@ use GuzzleHttp\Message\FutureResponse;
 use React\EventLoop\Factory;
 use WyriHaximus\React\RingPHP\HttpClientAdapter;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
 {
     /**
@@ -46,6 +48,14 @@ class ReactPhpPromiseTest extends ArangoDbPhpCoreGuzzleIntegrationTestCase
         $connector    = new Connector();
         $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
+
+    public function testFake()
+    {
+        static::markTestSkipped(
+            'This test has not been implemented yet.'
+        );
+    }
+
 
 //
 //    /**

@@ -39,7 +39,12 @@ class CollectionUnitTest extends ArangoDbPhpCoreGuzzleUnitTestCase
      */
     public $client;
 
-    public function testCollection()
+    public function testFake()
     {
+        static::markTestSkipped(
+            'This test has not been implemented yet. Check if this is needed here... anyways'
+        );
     }
+
+
 }

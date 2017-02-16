@@ -46,4 +46,24 @@ class ExceptionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Except
         $connector    = new Connector();
         $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
     }
+
+    public function testTimeoutException()
+    {
+        // Stop here and mark this test as incomplete.
+        static::markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+
+        //        $query = 'RETURN SLEEP(13)';
+        //
+        //        $statement = new Statement($this->connection, ["query" => $query]);
+        //
+        //        try {
+        //            $statement->execute();
+        //        } catch (ClientException $exception) {
+        //            $this->assertEquals($exception->getCode(), 408);
+        //            throw $exception;
+        //        }
+    }
+
 }
