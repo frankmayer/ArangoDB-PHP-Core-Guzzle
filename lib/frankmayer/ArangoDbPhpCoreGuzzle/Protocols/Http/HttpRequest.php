@@ -11,6 +11,7 @@
 namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 
 use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
+use GuzzleHttp\Psr7\Response;
 
 
 /**
@@ -21,4 +22,9 @@ use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
  */
 class HttpRequest extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequest implements HttpRequestInterface
 {
+    /**
+     * @var Response|string The response data as a result of the request
+     */
+    public $response;
+
 }

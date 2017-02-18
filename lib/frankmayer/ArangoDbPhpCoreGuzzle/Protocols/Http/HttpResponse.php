@@ -13,6 +13,7 @@ namespace frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http;
 use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
 use frankmayer\ArangoDbPhpCore\ServerException;
 use Future;
+use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\Response;
 
 
@@ -36,34 +37,30 @@ class HttpResponse extends \frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRespon
      */
     public function build($request)
     {
-        if ($request instanceof AbstractHttpRequest) {
-            $body = '';
-            $response      = $request->response;
-            $stream      = $request->response->getBody();
-            while (!$stream->eof()) {
-                $body .= $stream->read(1024);
-            }
-            $this->request = $request;
-
-            if ($request->batch === true) {
-                $boundary    = $request->batchBoundary;
-                $this->batch = $this->deconstructBatchResponseBody($body, $boundary);
-            }
-        } else {
-            $response = $request;
-        }
-
-        if ($response instanceof FutureResponse) {
-            return $response->then(function ($response) {
+        $response = $request->response;
+        if ($response instanceof Promise) {
+            return $response->then(function ($response, $request) {
                 $this->getGuzzleResponseData($response);
+                $this->request = $request;
+
+                if ($request->batch === true) {
+                    $boundary    = $request->batchBoundary;
+                    $this->batch = $this->deconstructBatchResponseBody($this->body, $boundary);
+                }
 
                 return $this;
             });
         } else {
             $this->getGuzzleResponseData($response);
-        }
+            $this->request = $request;
 
-        return $this;
+            if ($request->batch === true) {
+                $boundary    = $request->batchBoundary;
+                $this->batch = $this->deconstructBatchResponseBody($this->body, $boundary);
+            }
+
+            return $this;
+        }
     }
 
 

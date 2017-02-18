@@ -86,7 +86,11 @@ class Connector extends AbstractHttpConnector
         $connectorOptions = array_merge($connectorOptions, ['auth' => [$clientOptions['AuthUser'], $clientOptions['AuthPasswd']]]);
 
         try {
-            $response = $client->request($request->method, $request->address, $connectorOptions);
+            if ($clientOptions['clientAsyncProcessing'] === true) {
+                $response = $client->requestAsync($request->method, $request->address, $connectorOptions);
+            } else {
+                $response = $client->request($request->method, $request->address, $connectorOptions);
+            }
         } catch (ClientException $e) {
             throw new \frankmayer\ArangoDbPhpCore\ClientException($e->getMessage(), $e->getCode(), $e);
         } catch (ServerException $e) {
