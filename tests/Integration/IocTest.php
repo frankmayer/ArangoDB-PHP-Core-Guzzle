@@ -26,6 +26,8 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  */
 class IocTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\IocTest
 {
+    use TestCaseTrait;
+
     /**
      * @var Client
      */

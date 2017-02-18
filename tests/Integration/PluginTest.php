@@ -25,6 +25,8 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  */
 class PluginTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\PluginTest
 {
+    use TestCaseTrait;
+
     /**
      * @var ClientOptions $clientOptions
      */
@@ -35,21 +37,12 @@ class PluginTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\PluginTes
      */
     public $client;
 
-
     /**
-     *
+     * Override-able connector setup
      */
-    public function setUp()
+    protected function setupConnector()
     {
-        $connector    = new Connector();
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+        $this->connector = new Connector();
     }
 
-
-    /**
-     *
-     */
-    public function tearDown()
-    {
-    }
 }

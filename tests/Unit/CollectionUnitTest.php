@@ -8,7 +8,7 @@
  * @author  Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Unit;
 
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleUnitTestCase.php';
 

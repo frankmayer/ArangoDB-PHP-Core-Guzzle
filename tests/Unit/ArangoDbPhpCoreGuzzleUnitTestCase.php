@@ -7,7 +7,7 @@
  * @author Frank Mayer
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

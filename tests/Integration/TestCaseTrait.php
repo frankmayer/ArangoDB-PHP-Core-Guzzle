@@ -19,6 +19,8 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
  */
 trait TestCaseTrait
 {
+    use TestCaseTrait;
+
     /**
      *
      */
@@ -27,4 +29,6 @@ trait TestCaseTrait
      *
      */
     public $TESTS_NAMESPACE = '\\frankmayer\\ArangoDbPhpCoreGuzzle\\Tests\\';
+
+
 }

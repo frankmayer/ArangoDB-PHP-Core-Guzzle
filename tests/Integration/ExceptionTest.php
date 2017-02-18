@@ -19,6 +19,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
 
 class ExceptionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ExceptionTest
 {
+    use TestCaseTrait;
 
     /**
      * base URL part for cursor related operations
@@ -27,25 +28,15 @@ class ExceptionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Except
 
     const API_COLLECTION = '/_api/collection';
 
-    const METHOD_GET     = 'GET';
-    const METHOD_POST    = 'POST';
-    const METHOD_PUT     = 'PUT';
-    const METHOD_PATCH   = 'PATCH';
-    const METHOD_DELETE  = 'DELETE';
-    const METHOD_HEAD    = 'HEAD';
-    const METHOD_OPTIONS = 'OPTIONS';
 
     /**
-     * @var Client
+     * Override-able connector setup
      */
-    public $client;
-
-
-    public function setUp()
+    protected function setupConnector()
     {
-        $connector    = new Connector();
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+        $this->connector = new Connector();
     }
+
 
     public function testTimeoutException()
     {

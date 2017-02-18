@@ -26,8 +26,8 @@
     "php": ">=7.0.0",
     "wyrihaximus/react-guzzle-http-client": "dev-master",
     "guzzlehttp/guzzle": ">=6",
-    "frankmayer/arangodb-php-core": "dev-master",
-    "roave/security-advisories": "dev-master"
+    "frankmayer/arangodb-php-core": "dev-devel",
+    "react/react": "dev-master"
   },
   "autoload": {
     "psr-4": {

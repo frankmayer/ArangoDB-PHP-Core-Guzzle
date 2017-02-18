@@ -15,17 +15,20 @@ require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
 use frankmayer\ArangoDbPhpCore\Client;
+use frankmayer\ArangoDbPhpCore\ClientOptions;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
+use GuzzleHttp\Promise\Promise;
 
 
 /**
  * Class AsyncTest
+ *
  * @package frankmayer\ArangoDbPhpCore
  */
 class AsyncTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\AsyncTest
 {
-   use TestCaseTrait;
-
+    use TestCaseTrait;
     /**
      * @var Client $client
      */
@@ -33,26 +36,49 @@ class AsyncTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\AsyncTest
 
 
     /**
-     *
+     * Override-able connector setup
      */
-    public function setUp()
+    protected function setupConnector()
     {
-        $connector    = new Connector();
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+        $this->connector = new Connector();
+    }
+
+    public function setupProperties()
+    {
+        $this->clientOptions = ($this->TESTS_NAMESPACE . 'getClientOptions')();
+
+        if (($envVar = getenv('ArangoDB-PHP-Core-Async-Processing') === false) || $envVar !== 'true') {
+            $this->client = new Client($this->connector, $this->clientOptions);
+        } else {
+            $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($this->connector, [ClientOptions::OPTION_CLIENT_ASYNC_PROCESSING => true]);
+        }
     }
 
 
-//    /**
-//     *
-//     */
-//    public function tearDown()
-//    {
-//        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
-//
-//
-//        $collection = new Collection($this->client);
-//
-//        /** @var $responseObject HttpResponse */
-//        $collection->drop($collectionName);
-//    }
+    /**
+     *
+     */
+    public function tearDown()
+    {
+        $collectionName = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
+        $collection     = new Collection($this->client);
+
+        /** @var $responseObject HttpResponse */
+        $result = $collection->drop($collectionName);
+        $result = $this->resolveResponse($result);
+    }
+
+    /**
+     * @param $responseObject
+     *
+     * @return HttpResponse|Promise
+     */
+    protected function resolveResponse($responseObject)
+    {
+        if ($responseObject instanceof Promise) {
+            return $responseObject->wait();
+        } else {
+            return $responseObject;
+        }
+    }
 }

@@ -44,11 +44,19 @@ function getClientOptions()
         // ClientOptions::OPTION_PLUGINS              => $plugins,
         ClientOptions::OPTION_REQUEST_CLASS        => HttpRequest::class,
         ClientOptions::OPTION_RESPONSE_CLASS       => HttpResponse::class,
+        ClientOptions::OPTION_CLIENT_ASYNC_PROCESSING       => false,
     ];
 }
 
 
-function getClient($connector)
+/**
+ * @param       $connector
+ * @param array $overrides
+ *
+ * @return Client
+ */
+function getClient($connector, array $overrides = [])
 {
-    return new Client($connector, getClientOptions());
+    $clientOptions = array_merge(getClientOptions(), $overrides);
+    return new Client($connector, $clientOptions);
 }

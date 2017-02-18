@@ -13,20 +13,24 @@ namespace frankmayer\ArangoDbPhpCoreGuzzle\Tests\Integration;
 require_once __DIR__ . '/ArangoDbPhpCoreGuzzleIntegrationTestCase.php';
 require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ClientTest.php';
 
+use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
 use frankmayer\ArangoDbPhpCore\Client;
-use frankmayer\ArangoDbPhpCore\Tests\Integration\ClientIntegrationTest;
+use frankmayer\ArangoDbPhpCore\ClientOptions;
+use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse;
 use frankmayer\ArangoDbPhpCoreGuzzle\Connectors\Connector;
+use GuzzleHttp\Promise\Promise;
 
 //todo: fix tests
 
 
 /**
  * Class ClientTest
+ *
  * @package frankmayer\ArangoDbPhpCore
  */
 class ClientTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ClientTest
 {
-
+use TestCaseTrait;
     /**
      * @var Client
      */
@@ -36,29 +40,33 @@ class ClientTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\ClientTes
      */
     public $connector;
 
-
-    /**
-     *
-     */
     public function setUp()
     {
-
-        $connector       = new Connector();
-        $this->connector = $connector;
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
-    }
-
-    public function testFake()
-    {
-        static::markTestSkipped(
-            'This test has not been implemented yet.'
-        );
+        $this->connector = new Connector();
+        $this->setupProperties();
     }
 
     /**
-     *
+     * Test if the client returns a promise, if used asynchronously
      */
-    public function tearDown()
+    public function testAsyncCapableClientUsedAsynchronouslyReturnPromise()
     {
+        $client         = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($this->connector, [ClientOptions::OPTION_CLIENT_ASYNC_PROCESSING => true]);
+        $collection     = new Collection($client);
+        $responseObject = $collection->getAll();
+
+        static::assertInstanceOf('GuzzleHttp\Promise\Promise', $responseObject);
+    }
+
+    /**
+     * Test if the client returns an HttpResponse if used syncronously.
+     */
+    public function testAsyncCapableClientUsedSynchronouslyReturnHttpResponse()
+    {
+        $client         = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($this->connector, [ClientOptions::OPTION_CLIENT_ASYNC_PROCESSING => false]);
+        $collection     = new Collection($client);
+        $responseObject = $collection->getAll();
+
+        static::assertInstanceOf('frankmayer\ArangoDbPhpCore\Protocols\Http\HttpResponse', $responseObject);
     }
 }

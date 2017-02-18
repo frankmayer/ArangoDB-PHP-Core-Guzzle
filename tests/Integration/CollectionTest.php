@@ -36,12 +36,11 @@ class CollectionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Colle
 
 
     /**
-     *
+     * Override-able connector setup
      */
-    public function setUp()
+    protected function setupConnector()
     {
-        $connector    = new Connector();
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+        $this->connector = new Connector();
     }
 
 
@@ -54,6 +53,8 @@ class CollectionTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Colle
         $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
-        $collection->drop($collectionName);
+        $result = $collection->drop($collectionName);
+        $result = $this->resolveResponse($result);
+
     }
 }

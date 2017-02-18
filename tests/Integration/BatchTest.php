@@ -26,6 +26,7 @@ use frankmayer\ArangoDbPhpCoreGuzzle\Protocols\Http\HttpResponse;
  */
 class BatchTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\BatchTest
 {
+    use TestCaseTrait;
     /**
      * @var
      */
@@ -41,27 +42,12 @@ class BatchTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\BatchTest
      */
     public function setUp()
     {
-        $connector    = new Connector();
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
+        $this->connector = new Connector();
+
+        $this->setupProperties();
 
         $this->collectionNames[0] = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection-01';
         $this->collectionNames[1] = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection-02';
         $this->collectionNames[2] = ArangoDbPhpCoreGuzzleIntegrationTestCase::TESTNAMES_PREFIX . 'CollectionTestSuite-Collection-03';
-    }
-
-    /**
-     *
-     */
-    public function tearDown()
-    {
-        $batchParts = [];
-        foreach ($this->collectionNames as $collectionName) {
-            $collection = new Collection($this->client);
-
-            /** @var $responseObject HttpResponse */
-            $batchParts[] = $collection->drop($collectionName, ['isBatchPart' => true]);
-        }
-        $batch = new Batch($this->client);
-        $batch->send($this->client, $batchParts);
     }
 }

@@ -24,6 +24,7 @@ use HttpResponse;
 
 /**
  * Class DocumentTest
+ *
  * @package frankmayer\ArangoDbPhpCore
  */
 class DocumentTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\DocumentTest
@@ -41,9 +42,8 @@ class DocumentTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Documen
      */
     public function setUp()
     {
-        $connector = new Connector($this->client);
-        $this->client = \frankmayer\ArangoDbPhpCoreGuzzle\Tests\getClient($connector);
-
+        $this->connector = new Connector($this->client);
+        $this->setupProperties();
 
         $collectionName = $this->TESTNAMES_PREFIX . 'CollectionTestSuite-Collection';
 
@@ -103,7 +103,9 @@ class DocumentTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Documen
 
         /** @var HttpResponse $responseObject */
         $responseObject = $request->send();
-        $body           = $responseObject->body;
+        $responseObject = $this->resolveResponse($responseObject);
+
+        $body = $responseObject->body;
 
         $this->assertArrayHasKey('code', json_decode($body, true));
 
@@ -115,6 +117,8 @@ class DocumentTest extends \frankmayer\ArangoDbPhpCore\Tests\Integration\Documen
         $collection     = new Collection($this->client);
 
         /** @var $responseObject HttpResponse */
-        $collection->drop($collectionName);
+        $result=$collection->drop($collectionName);
+        $result = $this->resolveResponse($result);
+
     }
 }
